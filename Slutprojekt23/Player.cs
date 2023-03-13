@@ -1,8 +1,12 @@
 public class Player : Character
 {
+    Rectangle sourceRect;
+
     public Player()
     {
-        character = new Rectangle(0, 0, 40, 60);
+        character = new Rectangle(0, 0, 40, 50);
+        sprite = Raylib.LoadTexture("Player.png");
+        sourceRect = new Rectangle(0, 0, sprite.width, sprite.height);
     }
 
     public override void Update()
@@ -13,14 +17,16 @@ public class Player : Character
 
     public void PlayerMovement()
     {
-        gravity += 0.15f;
+
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
         {
             character.x -= speed.X;
+            sourceRect.width = -sprite.width;
         }
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             character.x += speed.X;
+            sourceRect.width = sprite.width;
         }
         if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE) && !isJumping)
         {
@@ -42,11 +48,11 @@ public class Player : Character
                 }
             }
 
-        character.y += gravity;
+
     }
 
     public void Draw()
     {
-        Raylib.DrawRectangleRec(character, Color.BLACK);
+        Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
     }
 }
