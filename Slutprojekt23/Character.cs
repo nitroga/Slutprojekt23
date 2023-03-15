@@ -1,11 +1,11 @@
 public class Character
 {
-    protected Rectangle character;
+    public Rectangle character;
     protected Vector2 speed = new Vector2(3, 5);
     protected float gravity;
     protected bool isJumping;
     protected Texture2D sprite;
-    protected Vector2 dir;
+    protected int health;
 
     public virtual void Update()
     {

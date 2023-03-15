@@ -23,6 +23,7 @@ while (!Raylib.WindowShouldClose())
     player.Draw();
     slime.Draw();
     level.Draw();
+    
 
 
     Raylib.EndDrawing();

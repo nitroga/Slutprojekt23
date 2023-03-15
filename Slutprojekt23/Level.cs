@@ -10,7 +10,6 @@ public class Level
     List<Rectangle> pinkFlowers = new  List<Rectangle>();
     public static List<Rectangle> grass = new List<Rectangle>();
 
-
     public void LoadLevel()
     {
         level = new int[11, 30]{
