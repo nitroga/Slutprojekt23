@@ -1,7 +1,7 @@
 public class Player : Character
 {
     Rectangle sourceRect;
-    List<Projectile> projectiles = new();
+    public static List<Projectile> projectiles = new();
     double cooldown = 1;
     bool onCooldown = false;
     public int offset = 40;
@@ -32,6 +32,17 @@ public class Player : Character
             if (projectiles[i].projectilePos.X < 0 || projectiles[i].projectilePos.X >= Raylib.GetScreenWidth())
             {
                 projectiles.Remove(projectiles[i]);
+            }
+            else
+            {
+                for (var j = 0; j < Level.grass.Count; j++)
+                {
+                    if (Raylib.CheckCollisionPointRec(projectiles[i].projectilePos, Level.grass[j]))
+                    {
+                        projectiles.Remove(projectiles[i]);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -87,7 +98,6 @@ public class Player : Character
         Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
         foreach (Projectile p in projectiles)
         {
-
             p.Draw(this);
         }
     }

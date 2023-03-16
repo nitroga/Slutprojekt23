@@ -1,6 +1,6 @@
 public class Projectile
 {
-    private static Texture2D fireball = Raylib.LoadTexture("Fireball.png");
+    private static Texture2D fireball = Raylib.LoadTexture("FireballBlue.png");
     public Vector2 projectilePos;
     float rotation;
     int dir = 1; 

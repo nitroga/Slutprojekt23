@@ -6,8 +6,8 @@ public class Level
     int[,] level = new int[11, 20];
     List<Rectangle> ground = new List<Rectangle>();
     List<Rectangle> yellowFlowers = new List<Rectangle>();
-    List<Rectangle> blueFlowers = new  List<Rectangle>();
-    List<Rectangle> pinkFlowers = new  List<Rectangle>();
+    List<Rectangle> blueFlowers = new List<Rectangle>();
+    List<Rectangle> pinkFlowers = new List<Rectangle>();
     public static List<Rectangle> grass = new List<Rectangle>();
 
     public void LoadLevel()

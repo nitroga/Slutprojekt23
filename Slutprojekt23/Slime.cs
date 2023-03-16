@@ -2,13 +2,14 @@ public class Slime : Character
 {
     Rectangle sourceRect;
     bool move = true;
+    double cooldown = 1;
 
     public Slime()
     {
         health = 40;
-        character = new Rectangle(0, 0, 40, 40);
+        character = new Rectangle(100, 100, 40, 40);
         sprite = Raylib.LoadTexture("Slime.png");
-        sourceRect = new Rectangle(0, 0, sprite.width, sprite.height);
+        sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height);
     }
 
     public override void Update()
@@ -28,6 +29,7 @@ public class Slime : Character
             if (character.x >= 1160)
             {
                 move = false;
+                sourceRect.width = sprite.width;
             }
         }
 
@@ -37,6 +39,7 @@ public class Slime : Character
             if (character.x <= 0)
             {
                 move = true;
+                sourceRect.width = -sprite.width;
             }
         }
 
@@ -48,8 +51,15 @@ public class Slime : Character
                 {
                     character.y = r.y - character.height;
                     gravity = 0;
-                    isJumping = false;
                 }
+            }
+        }
+        foreach (Projectile p in Player.projectiles)
+        {
+            if (Raylib.CheckCollisionPointRec(p.projectilePos, character) && Raylib.GetTime() - cooldown >= 0.7)
+            {
+                health -= 10;
+                cooldown = Raylib.GetTime();
             }
         }
     }
