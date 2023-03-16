@@ -2,12 +2,14 @@ public class Slime : Character
 {
     Rectangle sourceRect;
     bool move = true;
+    bool active = true;
     double cooldown = 1;
+    Random rnd = new Random();
 
     public Slime()
     {
         health = 40;
-        character = new Rectangle(100, 100, 40, 40);
+        character = new Rectangle(rnd.Next(50, 1100), 0, 40, 40);
         sprite = Raylib.LoadTexture("Slime.png");
         sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height);
     }
@@ -60,14 +62,21 @@ public class Slime : Character
             {
                 health -= 10;
                 cooldown = Raylib.GetTime();
+                if (health <= 0)
+                {
+                    active = false;
+                }
             }
         }
     }
 
     public void Draw()
     {
-        Raylib.DrawRectangle((int)character.x, (int)character.y + 6, 42, 9, Color.BLACK);
-        Raylib.DrawRectangle((int)character.x, (int)character.y + 5, health, 8, Color.GREEN);
-        Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+        if (active)
+        {
+            Raylib.DrawRectangle((int)character.x, (int)character.y + 6, 42, 9, Color.BLACK);
+            Raylib.DrawRectangle((int)character.x, (int)character.y + 5, health, 8, Color.GREEN);
+            Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+        }
     }
 }
