@@ -1,5 +1,6 @@
 public class Player : Character
 {
+    Level level = new Level();
     Rectangle sourceRect;
     public static List<Projectile> projectiles = new();
     double cooldown = 1;
@@ -75,6 +76,10 @@ public class Player : Character
         if (isJumping)
         {
             character.y -= speed.Y;
+        }
+        if (character.x >= 1160)
+        {
+            Level.level = Level.levels[1];
         }
 
         foreach (Rectangle r in Level.grass)

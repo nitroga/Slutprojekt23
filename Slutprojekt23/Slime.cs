@@ -24,10 +24,7 @@ public class Slime : Character
     {
         if (move == true)
         {
-            if (character.x >= 0)
-            {
-                character.x += 1.5f;
-            }
+            character.x += 1.5f;
             if (character.x >= 1160)
             {
                 move = false;
