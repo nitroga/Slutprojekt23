@@ -1,16 +1,17 @@
 public class Player : Character
 {
-    Level level = new Level();
     Rectangle sourceRect;
     public static List<Projectile> projectiles = new();
     double cooldown = 1;
     bool onCooldown = false;
     public int offset = 40;
     public float dir = 0;
+    public static Vector2 playerPos;
+    public static int playerHealth;
 
     public Player()
     {
-        health = 40;
+        playerHealth = 40;
         character = new Rectangle(0, 0, 40, 50);
         sprite = Raylib.LoadTexture("Player.png");
         sourceRect = new Rectangle(0, 0, sprite.width, sprite.height);
@@ -22,6 +23,7 @@ public class Player : Character
         PlayerMovement();
         UpdateProjectile();
     }
+
     public void UpdateProjectile()
     {
         foreach (Projectile p in projectiles)
@@ -50,6 +52,7 @@ public class Player : Character
 
     public void PlayerMovement()
     {
+        playerPos = new Vector2(character.x + 20 , character.y + 30);
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
         {
             character.x -= speed.X;
@@ -77,10 +80,6 @@ public class Player : Character
         {
             character.y -= speed.Y;
         }
-        if (character.x >= 1160)
-        {
-            Level.level = Level.levels[1];
-        }
 
         foreach (Rectangle r in Level.grass)
         {
@@ -99,7 +98,7 @@ public class Player : Character
     public void Draw()
     {
         Raylib.DrawRectangle((int)character.x, (int)character.y - 12, 42, 9, Color.BLACK);
-        Raylib.DrawRectangle((int)character.x, (int)character.y - 13, health, 8, Color.GREEN);
+        Raylib.DrawRectangle((int)character.x, (int)character.y - 13, playerHealth, 8, Color.GREEN);
         Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
         foreach (Projectile p in projectiles)
         {
