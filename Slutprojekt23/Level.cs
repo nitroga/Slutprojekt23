@@ -94,8 +94,5 @@ public class Level
     {
         ground.Clear();
         grass.Clear();
-        yellowFlowers.Clear();
-        blueFlowers.Clear();
-        pinkFlowers.Clear();
     }
 }
