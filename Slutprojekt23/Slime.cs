@@ -2,12 +2,14 @@ public class Slime : Character
 {
     Rectangle sourceRect;
     bool move = true;
-    public bool active{
-        get{
+    public bool active
+    {
+        get
+        {
             return health > 0;
         }
-        set{}
-    } 
+        set { }
+    }
     double cooldown = 1;
     double playerDmgCooldown = 1;
     Random rnd = new Random();
@@ -15,9 +17,9 @@ public class Slime : Character
     public Slime()
     {
         health = 40;
-        character = new Rectangle(rnd.Next(50, 1100), 0, 40, 40);
+        character = new Rectangle(rnd.Next(60, 1500), 0, 40, 40);
         sprite = Raylib.LoadTexture("Slime.png");
-        sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height);
+        sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height); 
     }
 
     public override void Update()
@@ -30,21 +32,21 @@ public class Slime : Character
     {
         if (move == true)
         {
+            sourceRect.width = -sprite.width;
             character.x += 1.5f;
-            if (character.x >= 1160)
+            if (character.x >= 1560)
             {
                 move = false;
-                sourceRect.width = sprite.width;
             }
         }
 
         else
         {
+            sourceRect.width = sprite.width;
             character.x -= 1.5f;
             if (character.x <= 0)
             {
                 move = true;
-                sourceRect.width = -sprite.width;
             }
         }
 
@@ -70,6 +72,14 @@ public class Slime : Character
             }
         }
 
+        foreach (Rectangle w in Level.water)
+        {
+            if ((int)character.x == (int)w.x - w.width || (int)character.x == (int)w.x + w.width)
+            {
+                move = !move;
+            }
+        }
+
         if (Raylib.CheckCollisionPointRec(Player.playerPos, character) && Raylib.GetTime() - playerDmgCooldown >= 0.7)
         {
             Player.playerHealth -= 10;
@@ -79,10 +89,8 @@ public class Slime : Character
 
     public void Draw()
     {
-    
-            Raylib.DrawRectangle((int)character.x, (int)character.y + 6, 42, 9, Color.BLACK);
-            Raylib.DrawRectangle((int)character.x, (int)character.y + 5, health, 8, Color.GREEN);
-            Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
-
+        Raylib.DrawRectangle((int)character.x, (int)character.y + 6, 42, 9, Color.BLACK);
+        Raylib.DrawRectangle((int)character.x, (int)character.y + 5, health, 8, Color.GREEN);
+        Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
     }
 }

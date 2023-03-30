@@ -4,6 +4,7 @@ public class Player : Character
     public static List<Projectile> projectiles = new();
     double cooldown = 1;
     bool onCooldown = false;
+    bool onLadder = false;
     public int offset = 40;
     public float dir = 0;
     public static Vector2 playerPos;
@@ -79,6 +80,16 @@ public class Player : Character
         if (isJumping)
         {
             character.y -= speed.Y;
+        }
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_S) && onLadder)
+        {
+            character.y += speed.Y;
+        }
+
+        if (character.y >= 720)
+        {
+            Console.WriteLine("i am dead");
         }
 
         foreach (Rectangle r in Level.grass)
