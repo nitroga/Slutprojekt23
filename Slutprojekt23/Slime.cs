@@ -19,7 +19,7 @@ public class Slime : Character
         health = 40;
         character = new Rectangle(rnd.Next(60, 1500), 0, 40, 40);
         sprite = Raylib.LoadTexture("Slime.png");
-        sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height); 
+        sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height);
     }
 
     public override void Update()
@@ -68,15 +68,18 @@ public class Slime : Character
             {
                 health -= 10;
                 cooldown = Raylib.GetTime();
-
             }
         }
 
         foreach (Rectangle w in Level.water)
         {
-            if ((int)character.x == (int)w.x - w.width || (int)character.x == (int)w.x + w.width)
+            if ((int)character.y >= w.y - w.height)
             {
-                move = !move;
+                if ((int)character.x == (int)w.x - w.width || (int)character.x == (int)w.x + w.width)
+                {
+                    move = !move;
+                    break;
+                }
             }
         }
 

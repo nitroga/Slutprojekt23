@@ -9,6 +9,15 @@ public class Player : Character
     public float dir = 0;
     public static Vector2 playerPos;
     public static int playerHealth;
+    public static Font font = Raylib.LoadFont("BACKTO1982.ttf");
+    public bool active
+    {
+        get
+        {
+            return playerHealth > 0;
+        }
+        set { }
+    }
 
     public Player()
     {
@@ -82,14 +91,9 @@ public class Player : Character
             character.y -= speed.Y;
         }
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S) && onLadder)
-        {
-            character.y += speed.Y;
-        }
-
         if (character.y >= 720)
         {
-            Console.WriteLine("i am dead");
+            playerHealth = 0;
         }
 
         foreach (Rectangle r in Level.grass)
@@ -104,13 +108,28 @@ public class Player : Character
                 }
             }
         }
+
+        foreach (Rectangle r in Level.ground)
+        {
+            if (Raylib.CheckCollisionRecs(character, r))
+            {
+                gravity = 5;
+            }
+        }
     }
 
     public void Draw()
     {
-        Raylib.DrawRectangle((int)character.x, (int)character.y - 12, 42, 9, Color.BLACK);
-        Raylib.DrawRectangle((int)character.x, (int)character.y - 13, playerHealth, 8, Color.GREEN);
-        Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+        if (active) 
+        {
+            Raylib.DrawRectangle((int)character.x, (int)character.y - 12, 42, 9, Color.BLACK);
+            Raylib.DrawRectangle((int)character.x, (int)character.y - 13, playerHealth, 8, Color.GREEN);
+            Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+        }
+        else
+        {
+            Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
+        }
         foreach (Projectile p in projectiles)
         {
             p.Draw(this);

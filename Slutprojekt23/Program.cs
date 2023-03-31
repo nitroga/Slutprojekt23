@@ -9,12 +9,14 @@ Raylib.SetTargetFPS(60);
 
 Player player = new();
 List<Slime> slimes = new();
+List<Coin> coins = new();
 Level level = new();
 double tpCooldown = 3;
 Random rnd = new();
 
 // Start-funktion(er)
 enemySpawn();
+coinSpawn();
 
 while (!Raylib.WindowShouldClose())
 {
@@ -53,17 +55,25 @@ while (!Raylib.WindowShouldClose())
         s.Update();
     }
     for (var i = 0; i < slimes.Count; i++)if (!slimes[i].active)slimes.RemoveAt(i);
+    foreach (Coin c in coins)
+    {
+        c.Update();
+    }
 
     Raylib.BeginDrawing();
     Raylib.DrawRectangleGradientV(0, 0, 1600, 720, Color.SKYBLUE, Color.RAYWHITE);
 
+    level.Draw();
     foreach (Slime s in slimes)
     {
         s.Draw();
     }
-    level.Draw();
+    foreach (Coin c in coins)
+    {
+        c.Draw();
+    }
     player.Draw();
-
+    
 
 
 
@@ -75,5 +85,13 @@ void enemySpawn()
     for (var i = 0; i < rnd.Next(2,6); i++)
     {
         slimes.Add(new());
+    }
+}
+
+void coinSpawn()
+{
+    for (var i = 0; i < rnd.Next(3,7); i++)
+    {
+        coins.Add(new(grassBlocks: Level.grass));
     }
 }
