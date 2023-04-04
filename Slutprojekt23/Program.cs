@@ -15,9 +15,9 @@ double tpCooldown = 3;
 Random rnd = new();
 
 // Start-funktion(er)
-enemySpawn();
-coinSpawn();
+spawns();
 
+// Update-funktionen
 while (!Raylib.WindowShouldClose())
 {
     if (Raylib.GetTime() - tpCooldown <= 3)
@@ -31,8 +31,7 @@ while (!Raylib.WindowShouldClose())
         tpCooldown = Raylib.GetTime();
         Level.currentLevel++;
         level = new Level();    
-        slimes.Clear(); 
-        enemySpawn();
+        spawns();
         player.character.x = -20; 
     }
 
@@ -43,8 +42,7 @@ while (!Raylib.WindowShouldClose())
         {
             Level.currentLevel--;
             level = new Level();     
-            slimes.Clear();
-            enemySpawn();
+            spawns();
             player.character.x = 1580; 
         }
     }
@@ -55,6 +53,7 @@ while (!Raylib.WindowShouldClose())
         s.Update();
     }
     for (var i = 0; i < slimes.Count; i++)if (!slimes[i].active)slimes.RemoveAt(i);
+    for (var i = 0; i < coins.Count; i++)if (coins[i].isCollected)coins.RemoveAt(i);
     foreach (Coin c in coins)
     {
         c.Update();
@@ -94,4 +93,12 @@ void coinSpawn()
     {
         coins.Add(new(grassBlocks: Level.grass));
     }
+}
+
+void spawns()
+{
+    slimes.Clear();
+    coins.Clear();
+    enemySpawn();
+    coinSpawn();
 }

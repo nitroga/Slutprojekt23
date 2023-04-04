@@ -3,15 +3,15 @@ public class Level
     Random rnd = new Random();
     bool loaded = false;
     static List<Texture2D> levelTextures = new List<Texture2D>() { Raylib.LoadTexture("Ground.png"), Raylib.LoadTexture("Grass.png"), Raylib.LoadTexture("Water.png"),Raylib.LoadTexture("SnowBlock.png") };
+    static List<Texture2D> detailTextures = new List<Texture2D>() { Raylib.LoadTexture("Stone.png"), Raylib.LoadTexture("StoneA.png")};
     static List<Texture2D> caveTextures = new List<Texture2D>() { Raylib.LoadTexture("Rock.png") };
-    static List<Texture2D> levelFlowers = new List<Texture2D>() { Raylib.LoadTexture("Pinkflower.png"), Raylib.LoadTexture("Yellowflower.png"), Raylib.LoadTexture("Blueflower.png") };
     public int[,] level = new int[11, 30];
     public static List<Rectangle> ground = new();
     List<Rectangle> caveWall = new();
     public static List<Rectangle> water = new();
     public static List<Rectangle> grass = new();
     public static string type = "normal";
-    public static int currentLevel = 1;
+    public static int currentLevel = 0;
     List<int[,]> levels = new();
 
     public Level()
@@ -148,5 +148,6 @@ public class Level
     {
         ground.Clear();
         grass.Clear();
+        water.Clear();
     }
 }

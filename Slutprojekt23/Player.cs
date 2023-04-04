@@ -2,9 +2,9 @@ public class Player : Character
 {
     Rectangle sourceRect;
     public static List<Projectile> projectiles = new();
-    double cooldown = 1;
+    public static int coins = 0;
+    double cooldown = 0.7;
     bool onCooldown = false;
-    bool onLadder = false;
     public int offset = 40;
     public float dir = 0;
     public static Vector2 playerPos;
@@ -125,10 +125,11 @@ public class Player : Character
             Raylib.DrawRectangle((int)character.x, (int)character.y - 12, 42, 9, Color.BLACK);
             Raylib.DrawRectangle((int)character.x, (int)character.y - 13, playerHealth, 8, Color.GREEN);
             Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+            Raylib.DrawText("Coins: " + coins, 10, 10, 25, Color.BLACK);
         }
         else
         {
-            Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
+           Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
         }
         foreach (Projectile p in projectiles)
         {
