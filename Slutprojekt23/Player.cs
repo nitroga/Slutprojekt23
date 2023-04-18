@@ -62,7 +62,7 @@ public class Player : Character
 
     public void PlayerMovement()
     {
-        playerPos = new Vector2(character.x + 20 , character.y + 30);
+        playerPos = new Vector2(character.x + 20, character.y + 30);
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
         {
             character.x -= speed.X;
@@ -96,6 +96,7 @@ public class Player : Character
             playerHealth = 0;
         }
 
+        // Collision för player
         foreach (Rectangle r in Level.grass)
         {
             if (Raylib.CheckCollisionRecs(character, r))
@@ -113,23 +114,33 @@ public class Player : Character
         {
             if (Raylib.CheckCollisionRecs(character, r))
             {
-                gravity = 5;
+                if (character.y <= r.y + r.height)
+                {
+                    gravity += .3f;
+                }
+                else if (character.x + character.width >= r.x)
+                {
+                    character.x = r.x - character.width;
+                }
             }
         }
     }
 
     public void Draw()
     {
-        if (active) 
+        if (active)
         {
+            Raylib.DrawText("HEALTH", 10, 10, 25, Color.BLACK);
+            Raylib.DrawRectangle(10, 36, 210, 30, Color.BLACK);
+            Raylib.DrawRectangle(15, 41, playerHealth * 5, 20, Color.GREEN);
             Raylib.DrawRectangle((int)character.x, (int)character.y - 12, 42, 9, Color.BLACK);
             Raylib.DrawRectangle((int)character.x, (int)character.y - 13, playerHealth, 8, Color.GREEN);
             Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
-            Raylib.DrawText("Coins: " + coins, 10, 10, 25, Color.BLACK);
+            Raylib.DrawText("Coins: " + coins, 10, 70, 25, Color.BLACK);
         }
         else
         {
-           Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
+            Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
         }
         foreach (Projectile p in projectiles)
         {

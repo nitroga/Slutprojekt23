@@ -50,6 +50,7 @@ public class Slime : Character
             }
         }
 
+        // Collision för slime
         foreach (Rectangle r in Level.grass)
         {
             if (Raylib.CheckCollisionRecs(character, r))
@@ -68,6 +69,8 @@ public class Slime : Character
             {
                 health -= 10;
                 cooldown = Raylib.GetTime();
+                Player.projectiles.Remove(p);
+                break;
             }
         }
 

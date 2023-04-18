@@ -3,7 +3,6 @@ public class Level
     Random rnd = new Random();
     bool loaded = false;
     static List<Texture2D> levelTextures = new List<Texture2D>() { Raylib.LoadTexture("Ground.png"), Raylib.LoadTexture("Grass.png"), Raylib.LoadTexture("Water.png"),Raylib.LoadTexture("SnowBlock.png") };
-    static List<Texture2D> detailTextures = new List<Texture2D>() { Raylib.LoadTexture("Stone.png"), Raylib.LoadTexture("StoneA.png")};
     static List<Texture2D> caveTextures = new List<Texture2D>() { Raylib.LoadTexture("Rock.png") };
     public int[,] level = new int[11, 30];
     public static List<Rectangle> ground = new();
@@ -11,7 +10,7 @@ public class Level
     public static List<Rectangle> water = new();
     public static List<Rectangle> grass = new();
     public static string type = "normal";
-    public static int currentLevel = 0;
+    public static int currentLevel = 1;
     List<int[,]> levels = new();
 
     public Level()
@@ -64,10 +63,10 @@ public class Level
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0},
             {1,1,1,1,1,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,1,1,1,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0},
-            {2,2,2,2,2,1,1,1,1,0,0,0,4,4,4,2,2,4,2,2,4,4,4,2,2,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0},
+            {2,2,2,2,2,1,1,1,1,0,0,0,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0},
             {2,2,2,2,2,2,2,2,2,1,0,0,4,4,4,4,4,4,4,4,4,4,4,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,0,0},
-            {2,2,2,2,2,2,2,2,2,2,1,1,1,4,4,4,4,4,4,4,4,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1},
-            {2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,3,3,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+            {2,2,2,2,2,2,2,2,2,2,1,0,4,4,4,4,4,4,4,4,4,4,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1},
+            {2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,3,3,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
         });
 
         levels.Add(new int[18, 40]{
