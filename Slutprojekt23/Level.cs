@@ -9,8 +9,8 @@ public class Level
     List<Rectangle> caveWall = new();
     public static List<Rectangle> water = new();
     public static List<Rectangle> grass = new();
-    public static string type = "normal";
-    public static int currentLevel = 2;
+    public static string type = "snow";
+    public static int currentLevel = 0;
     List<int[,]> levels = new();
 
     public Level()

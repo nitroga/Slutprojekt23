@@ -70,15 +70,15 @@ while (!Raylib.WindowShouldClose())
         }
         for (var i = 0; i < slimes.Count; i++) if (!slimes[i].active)
             {
-                Heart.position = new Vector2(slimes[i].character.x, slimes[i].character.y);
+                Coin.position = Heart.position = new Vector2(slimes[i].character.x, slimes[i].character.y);
                 if (rnd.Next(0, 2) == 0)
                 {
                     coins.Add(new(grassBlocks: Level.grass));
+                    Coin.position = Vector2.Zero;
                 }
                 else
                 {
                     hearts.Add(new());
-
                 }
                 slimes.RemoveAt(i);
             }
