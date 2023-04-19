@@ -17,7 +17,7 @@ public class Slime : Character
     public Slime()
     {
         health = 40;
-        character = new Rectangle(rnd.Next(60, 1500), 0, 40, 40);
+        character = new Rectangle(rnd.Next(60, 1500), 200, 40, 40);
         sprite = Raylib.LoadTexture("Slime.png");
         sourceRect = new Rectangle(0, 0, -sprite.width, sprite.height);
     }
@@ -86,7 +86,7 @@ public class Slime : Character
             }
         }
 
-        if (Raylib.CheckCollisionPointRec(Player.playerPos, character) && Raylib.GetTime() - playerDmgCooldown >= 0.7)
+        if (Raylib.CheckCollisionPointRec(Player.playerPos, character) && Raylib.GetTime() - playerDmgCooldown >= 0.5)
         {
             Player.playerHealth -= 10;
             playerDmgCooldown = Raylib.GetTime();

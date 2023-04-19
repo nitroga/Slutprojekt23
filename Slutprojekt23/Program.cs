@@ -11,12 +11,13 @@ Player player = new();
 Settings settings = new();
 List<Slime> slimes = new();
 List<Coin> coins = new();
+List<Heart> hearts = new();
 Level level = new();
 double tpCooldown = 3;
 Random rnd = new();
 
 // Start-funktion(er)
-spawns();
+Spawns();
 Raylib.SetExitKey(0);
 
 // Allt som ska uppdateras varje frame
@@ -31,22 +32,31 @@ while (!Raylib.WindowShouldClose())
 
     else if (player.character.x >= 1580 && Raylib.GetTime() - tpCooldown >= 3)
     {
-        tpCooldown = Raylib.GetTime();
-        Level.currentLevel++;
-        level = new Level();
-        spawns();
-        player.character.x = -20;
+        if (Level.currentLevel != 2)
+        {
+            tpCooldown = Raylib.GetTime();
+            Level.currentLevel++;
+            level = new Level();
+            Spawns();
+            player.character.x = -20;
+        }
+        else 
+        {
+            player.character.x = 1580;
+        }
     }
 
     else if (player.character.x <= -20 && Raylib.GetTime() - tpCooldown >= 3)
     {
-        tpCooldown = Raylib.GetTime();
         if (Level.currentLevel != 0)
         {
             Level.currentLevel--;
             level = new Level();
-            spawns();
+            Spawns();
             player.character.x = 1580;
+        }
+        else {
+            player.character.x = -20;
         }
     }
 
@@ -58,11 +68,29 @@ while (!Raylib.WindowShouldClose())
         {
             s.Update();
         }
-        for (var i = 0; i < slimes.Count; i++) if (!slimes[i].active) slimes.RemoveAt(i);
+        for (var i = 0; i < slimes.Count; i++) if (!slimes[i].active)
+            {
+                Heart.position = new Vector2(slimes[i].character.x, slimes[i].character.y);
+                if (rnd.Next(0, 2) == 0)
+                {
+                    coins.Add(new(grassBlocks: Level.grass));
+                }
+                else
+                {
+                    hearts.Add(new());
+
+                }
+                slimes.RemoveAt(i);
+            }
         for (var i = 0; i < coins.Count; i++) if (coins[i].isCollected) coins.RemoveAt(i);
+        for (var i = 0; i < hearts.Count; i++) if (hearts[i].isCollected) hearts.RemoveAt(i);
         foreach (Coin c in coins)
         {
             c.Update();
+        }
+        foreach (Heart h in hearts)
+        {
+            h.Update();
         }
 
     }
@@ -83,6 +111,10 @@ while (!Raylib.WindowShouldClose())
     {
         c.Draw();
     }
+    foreach (Heart h in hearts)
+    {
+        h.Draw();
+    }
     player.Draw();
     settings.Draw();
 
@@ -90,10 +122,11 @@ while (!Raylib.WindowShouldClose())
 }
 
 // Diverse funktion(er) som används i Program.cs
-void spawns()
+void Spawns()
 {
     slimes.Clear();
     coins.Clear();
+    hearts.Clear();
     for (var i = 0; i < rnd.Next(2, 6); i++)
     {
         slimes.Add(new());

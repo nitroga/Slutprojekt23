@@ -19,12 +19,12 @@ public class Projectile
         }
     }
 
-    public void Shoot(Player p)
+    public void Shoot()
     {
         projectilePos.X += 4.5f * dir;
     }
 
-    public void Draw(Player p) 
+    public void Draw() 
     {
         Raylib.DrawTextureEx(fireball, projectilePos, rotation, 1, Color.WHITE);
     }

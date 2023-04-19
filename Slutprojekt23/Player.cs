@@ -2,6 +2,7 @@ public class Player : Character
 {
     Rectangle sourceRect;
     public static List<Projectile> projectiles = new();
+    public static List<Heart> hearts = new();
     public static int coins = 0;
     double cooldown = 0.7;
     bool onCooldown = false;
@@ -38,8 +39,9 @@ public class Player : Character
     {
         foreach (Projectile p in projectiles)
         {
-            p.Shoot(this);
+            p.Shoot();
         }
+        
         for (var i = 0; i < projectiles.Count; i++)
         {
             if (projectiles[i].projectilePos.X < 0 || projectiles[i].projectilePos.X >= Raylib.GetScreenWidth())
@@ -118,10 +120,6 @@ public class Player : Character
                 {
                     gravity += .3f;
                 }
-                else if (character.x + character.width >= r.x)
-                {
-                    character.x = r.x - character.width;
-                }
             }
         }
     }
@@ -144,7 +142,7 @@ public class Player : Character
         }
         foreach (Projectile p in projectiles)
         {
-            p.Draw(this);
+            p.Draw();
         }
     }
 }
