@@ -5,7 +5,8 @@ public class Projectile
     float rotation;
     int dir = 1; 
 
-    public Projectile(Player p){
+    public Projectile(Player p)
+    {
         projectilePos = new Vector2(p.character.x + p.offset, p.character.y + 20);
         if (p.dir == -1)
         {
@@ -24,7 +25,7 @@ public class Projectile
         projectilePos.X += 4.5f * dir;
     }
 
-    public void Draw() 
+    public void Draw()
     {
         Raylib.DrawTextureEx(fireball, projectilePos, rotation, 1, Color.WHITE);
     }

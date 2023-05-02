@@ -2,7 +2,7 @@ public class Coin
 {
     Random rnd = new();
     public Rectangle coin;
-    public static Texture2D sprite = Raylib.LoadTexture("Coin.png");
+    static Texture2D sprite = Raylib.LoadTexture("Coin.png");
     public bool isCollected = false;
     public static Vector2 position = Vector2.Zero;
 

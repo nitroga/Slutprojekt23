@@ -9,7 +9,7 @@ public class Level
     List<Rectangle> caveWall = new();
     public static List<Rectangle> water = new();
     public static List<Rectangle> grass = new();
-    public static string type = "snow";
+    string type = "snow";
     public static int currentLevel = 0;
     List<int[,]> levels = new();
 
@@ -17,15 +17,15 @@ public class Level
     {
         if (loaded == false)
         {
-            addLevels();
+            AddLevels();
             loaded = true;
         }
         ClearLevel();
         level = levels[currentLevel];
-        updateLevel();
+        UpdateLevel();
     }
 
-    public void addLevels() // Lägger till alla levlar i en lista.
+    public void AddLevels() // Lägger till alla levlar i en lista.
     {
         levels.Add(new int[18, 40]{
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -91,7 +91,7 @@ public class Level
         });
     }
 
-    public void updateLevel() // Kallas varje gång en ny level skapas, kollar efter position i levels[currentLevel] och lägger till en rektangel beroende på positionen.
+    public void UpdateLevel() // Kallas varje gång en ny level skapas, kollar efter position i levels[currentLevel] och lägger till en rektangel beroende på positionen.
     {
         for (int y = 0; y < level.GetLength(0); y++)
         {
@@ -144,7 +144,7 @@ public class Level
         }
     }
 
-    public void ClearLevel() 
+    public void ClearLevel() // Rensar allt i nuvarande level
     {
         ground.Clear();
         grass.Clear();
