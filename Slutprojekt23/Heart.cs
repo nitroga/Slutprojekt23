@@ -6,12 +6,12 @@ public class Heart
     public bool isCollected = false;
     public static Vector2 position;
 
-    public Heart()
+    public Heart() // Skapar ett ny hjärta på positon, som kommer från slime-positionen när den dött.
     {
         heart = new Rectangle(position.X, position.Y, 40, 40);
     }
 
-    public void Update()
+    public void Update() // Update-funktionen, kollar endast collision med spelaren och ändrar så att hjärtat har tagits upp.
     {
         if (Raylib.CheckCollisionPointRec(Player.playerPos, heart))
         {
@@ -23,20 +23,8 @@ public class Heart
         }
     }
 
-    public void Draw()
+    public void Draw() // Ritar ut hjärtat.
     {
         Raylib.DrawTextureEx(sprite, new Vector2((int)heart.x, (int)heart.y), 0, 0.8f, Color.WHITE);
-    }
-
-    bool IsOnGrassBlock(List<Rectangle> grassBlocks, Vector2 position)
-    {
-        foreach (Rectangle grassBlock in Level.grass)
-        {
-            if (Raylib.CheckCollisionPointRec(position, grassBlock))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }

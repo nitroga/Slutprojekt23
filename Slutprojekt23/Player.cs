@@ -20,7 +20,7 @@ public class Player : Character
         set { }
     }
 
-    public Player()
+    public Player() // Skapar spelaren.
     {
         playerHealth = 40;
         character = new Rectangle(0, 0, 40, 50);
@@ -28,21 +28,21 @@ public class Player : Character
         sourceRect = new Rectangle(0, 0, sprite.width, sprite.height);
     }
 
-    public override void Update()
+    public override void Update() // Update funktionen, gör en override på character.Update() som den ärver ifrån.
     {
-        base.Update();
-        PlayerMovement();
-        UpdateProjectile();
+        base.Update(); // Kör Character.Update()
+        PlayerMovement(); // Kör PlayerMovement()
+        UpdateProjectile(); // Kör UpdateProjectile()
     }
 
-    public void UpdateProjectile()
+    public void UpdateProjectile() // Update-funktion för projektiler, ja, jag gjorde det i Player.cs.
     {
         foreach (Projectile p in projectiles)
         {
             p.Shoot();
         }
         
-        for (var i = 0; i < projectiles.Count; i++)
+        for (var i = 0; i < projectiles.Count; i++) // Kollar om projektilen är utanför skärmen eller om den träffar något. Om den gör det ska den försvinna.
         {
             if (projectiles[i].projectilePos.X < 0 || projectiles[i].projectilePos.X >= Raylib.GetScreenWidth())
             {
@@ -62,7 +62,7 @@ public class Player : Character
         }
     }
 
-    public void PlayerMovement()
+    public void PlayerMovement() // Movement för spelaren.
     {
         playerPos = new Vector2(character.x + 20, character.y + 30);
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
@@ -79,14 +79,17 @@ public class Player : Character
             offset = 40;
             dir = 1;
         }
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE) && !isJumping)
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE) || Raylib.IsKeyDown(KeyboardKey.KEY_W))
         {
-            isJumping = true;
+            if (!isJumping) isJumping = true;
         }
-        if (Raylib.IsMouseButtonPressed(0) && Raylib.GetTime() - cooldown >= 0.7)
+        if (Raylib.IsMouseButtonPressed(0) || Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER))
         {
-            projectiles.Add(new Projectile(this));
-            cooldown = Raylib.GetTime();
+            if (Raylib.GetTime() - cooldown >= 0.7) 
+            {
+                projectiles.Add(new Projectile(this));
+                cooldown = Raylib.GetTime();
+            }
         }
         if (isJumping)
         {
@@ -124,9 +127,9 @@ public class Player : Character
         }
     }
 
-    public void Draw()
+    public void Draw() // Rita ut spelaren.
     {
-        if (active)
+        if (active) // Rita bara ut spelaren om den är aktiv, aka, lever.
         {
             Raylib.DrawText("HEALTH", 10, 10, 25, Color.BLACK);
             Raylib.DrawRectangle(10, 36, 210, 30, Color.BLACK);
@@ -136,11 +139,11 @@ public class Player : Character
             Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
             Raylib.DrawText("Coins: " + coins, 10, 70, 25, Color.BLACK);
         }
-        else
+        else // Om spelaren dör så ska det stå "Game Over" på skärmen.
         {
             Raylib.DrawTextEx(font, "Game Over", new Vector2(600, 250), 50, 1, Color.RED);
         }
-        foreach (Projectile p in projectiles)
+        foreach (Projectile p in projectiles) // Rita ut projektilerna.
         {
             p.Draw();
         }

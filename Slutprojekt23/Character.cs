@@ -7,7 +7,7 @@ public class Character
     protected Texture2D sprite;
     protected int health;
 
-    public virtual void Update()
+    public virtual void Update() // Update-funktionen för character, körs varje gång base.Update() körs för alla klasser som ärver från denna klass
     {
         gravity += 0.15f;
         character.y += gravity;

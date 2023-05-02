@@ -13,7 +13,7 @@ public class Level
     public static int currentLevel = 0;
     List<int[,]> levels = new();
 
-    public Level()
+    public Level() // Spelas upp varje gång jag byter level, och i början av spelet.
     {
         if (loaded == false)
         {
@@ -25,7 +25,7 @@ public class Level
         updateLevel();
     }
 
-    public void addLevels()
+    public void addLevels() // Lägger till alla levlar i en lista.
     {
         levels.Add(new int[18, 40]{
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -91,12 +91,13 @@ public class Level
         });
     }
 
-    public void updateLevel() {
+    public void updateLevel() // Kallas varje gång en ny level skapas, kollar efter position i levels[currentLevel] och lägger till en rektangel beroende på positionen.
+    {
         for (int y = 0; y < level.GetLength(0); y++)
         {
             for (int x = 0; x < level.GetLength(1); x++)
             {
-                if (level[y, x] == 1)
+                if (level[y, x] == 1) // Om postionen är 1 så läggs gräs till i listan grass och så vidare.
                 {
                     grass.Add(new Rectangle(x * 40, y * 40, 40, 40));
                 }
@@ -116,9 +117,9 @@ public class Level
         }
     }
 
-    public void Draw()
+    public void Draw() // Ritar ut alla rektanglar i respektive lista.
     {
-        foreach (Rectangle p in water)
+        foreach (Rectangle p in water) // Ritar ut vatten för alla rektanglar i listan water, samma gäller för resten av listorna.
         {
             Raylib.DrawTexture(levelTextures[2], (int)p.x, (int)p.y, Color.WHITE);
         }

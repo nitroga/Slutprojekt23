@@ -1,8 +1,8 @@
 ﻿global using Raylib_cs;
 global using System.Numerics;
 
-int ScrWidth = Raylib.GetScreenWidth();
-int ScrHeight = Raylib.GetScreenHeight();
+int scrWidth = Raylib.GetScreenWidth();
+int scrHeight = Raylib.GetScreenHeight();
 Raylib.InitWindow(1600, 720, "Platformer");
 
 Raylib.SetTargetFPS(60);
@@ -24,13 +24,13 @@ Raylib.SetExitKey(0);
 while (!Raylib.WindowShouldClose())
 {
     // Teleportering mellan världar
-    if (Raylib.GetTime() - tpCooldown <= 3)
+    if (Raylib.GetTime() - tpCooldown <= 3) // Kan inte gå utanför level inom 3 sekunder av teleportering
     {
         if (player.character.x >= 1580) player.character.x = 1580;
         else if (player.character.x <= -20) player.character.x = -20;
     }
 
-    else if (player.character.x >= 1580 && Raylib.GetTime() - tpCooldown >= 3)
+    else if (player.character.x >= 1580 && Raylib.GetTime() - tpCooldown >= 3)  // Teleportering till vänster (currentLevel sänks)
     {
         if (Level.currentLevel != 2)
         {
@@ -46,7 +46,7 @@ while (!Raylib.WindowShouldClose())
         }
     }
 
-    else if (player.character.x <= -20 && Raylib.GetTime() - tpCooldown >= 3)
+    else if (player.character.x <= -20 && Raylib.GetTime() - tpCooldown >= 3) // Teleportering till höger (currentLevel höjs)
     {
         if (Level.currentLevel != 0)
         {
@@ -61,7 +61,7 @@ while (!Raylib.WindowShouldClose())
     }
 
     // Update-funktioner
-    if (!settings.enabled)
+    if (!settings.enabled) // Om inte inställningarna är öppna, så kör programmet. Aka, om inställningarna är på så fryser spelet.
     {
         player.Update();
         foreach (Slime s in slimes)
@@ -98,7 +98,7 @@ while (!Raylib.WindowShouldClose())
     settings.Update();
 
     // Draw-funktioner
-    if (settings.exit) break;
+    if (settings.exit) break; // Om inte detta så skulle spelet ge error när man stängt ner spelet!
     Raylib.BeginDrawing();
     Raylib.ClearBackground(Color.SKYBLUE);
 
