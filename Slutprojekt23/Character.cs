@@ -6,6 +6,7 @@ public class Character
     protected bool isJumping;
     protected Texture2D sprite;
     protected int health;
+    protected Random rnd = new();
 
     public virtual void Update() // Update-funktionen för character, körs varje gång base.Update() körs för alla klasser som ärver från denna klass
     {

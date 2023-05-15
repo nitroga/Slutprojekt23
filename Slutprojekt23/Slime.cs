@@ -1,19 +1,5 @@
-public class Slime : Character
+public class Slime : Enemy
 {
-    Rectangle sourceRect;
-    bool move = true;
-    public bool active
-    {
-        get
-        {
-            return health > 0;
-        }
-        set { }
-    }
-    double cooldown = 1;
-    double playerDmgCooldown = 1;
-    Random rnd = new Random();
-
     public Slime() // Skapar slime
     {
         health = 40;
@@ -93,10 +79,8 @@ public class Slime : Character
         }
     }
 
-    public void Draw() // Rita ut slime.
+    public override void Draw() // Rita ut slime.
     {
-        Raylib.DrawRectangle((int)character.x, (int)character.y + 6, 42, 9, Color.BLACK);
-        Raylib.DrawRectangle((int)character.x, (int)character.y + 5, health, 8, Color.GREEN);
-        Raylib.DrawTextureRec(sprite, sourceRect, new Vector2((int)character.x, (int)character.y), Color.WHITE);
+        base.Draw();
     }
 }
